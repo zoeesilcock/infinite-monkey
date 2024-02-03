@@ -1,5 +1,6 @@
 use rand::prelude::*;
 use std::collections::HashMap;
+use std::ops::Range;
 use time::format_description::well_known::Iso8601;
 use time::Date;
 
@@ -25,6 +26,14 @@ fn generate_row(index: u32) {
     let length = rng.gen_range(3..20);
     row.insert("word".to_string(), generate_word(length));
 
+    // Comma separated words
+    let count = rng.gen_range(5..10);
+    let word_pool = generate_word_pool(count, 3, 20);
+    row.insert(
+        "words".to_string(),
+        generate_string_from_words(1..5, word_pool, ','),
+    );
+
     println!("{:?}", row);
 }
 
@@ -41,4 +50,33 @@ fn generate_word(length: u32) -> String {
     }
 
     word
+}
+
+fn generate_word_pool(count: u32, length_from: u32, length_to: u32) -> Vec<String> {
+    let mut rng = thread_rng();
+    let mut words: Vec<String> = vec![];
+
+    for _i in 0..count {
+        words.push(generate_word(rng.gen_range(length_from..length_to)));
+    }
+
+    words
+}
+
+fn generate_string_from_words(
+    count_range: Range<u32>,
+    pool: Vec<String>,
+    separator: char,
+) -> String {
+    let mut rng = thread_rng();
+    let mut result: String = "".to_string();
+
+    for _i in 0..rng.gen_range(count_range) {
+        result.push_str(pool.get(rng.gen_range(0..pool.len())).unwrap());
+        result.push(separator);
+    }
+
+    result.pop();
+
+    result
 }
