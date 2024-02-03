@@ -34,6 +34,13 @@ fn generate_row(index: u32) {
         generate_string_from_words(1..5, word_pool, ','),
     );
 
+    // Hierarchical data
+    let hierarchical_data_pool = generate_hierarchical_data_pool('A'..'F', 1..7);
+    row.insert(
+        "hierarchical".to_string(),
+        generate_string_from_words(1..5, hierarchical_data_pool, ','),
+    );
+
     println!("{:?}", row);
 }
 
@@ -58,6 +65,22 @@ fn generate_word_pool(count: u32, length_from: u32, length_to: u32) -> Vec<Strin
 
     for _i in 0..count {
         words.push(generate_word(rng.gen_range(length_from..length_to)));
+    }
+
+    words
+}
+
+fn generate_hierarchical_data_pool(top_range: Range<char>, sub_range: Range<u32>) -> Vec<String> {
+    let mut words: Vec<String> = vec![];
+
+    for top_level in top_range {
+        words.push(top_level.to_string());
+
+        for sub_level in sub_range.clone() {
+            let mut combined: String = top_level.to_string();
+            combined.push(char::from_digit(sub_level, 10).unwrap());
+            words.push(combined);
+        }
     }
 
     words
