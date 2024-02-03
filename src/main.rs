@@ -5,17 +5,20 @@ use time::format_description::well_known::Iso8601;
 use time::{Date, Month};
 
 fn main() {
-    for i in 0..10 {
-        generate_row(i);
+    let start_id: u32 = 0;
+    let end_id: u32 = 10;
+
+    for id in start_id..=end_id {
+        generate_row(id, start_id, end_id);
     }
 }
 
-fn generate_row(index: u32) {
+fn generate_row(id: u32, start_id: u32, end_id: u32) {
     let mut rng = thread_rng();
     let mut row = HashMap::new();
 
     // Sequencial number
-    row.insert("id".to_string(), index.to_string());
+    row.insert("id".to_string(), id.to_string());
 
     // Date
     let date = generate_random_date(2020..2024);
@@ -39,6 +42,13 @@ fn generate_row(index: u32) {
     row.insert(
         "hierarchical".to_string(),
         generate_string_from_words(1..5, hierarchical_data_pool, ','),
+    );
+
+    // References
+    let reference_pool = generate_reference_pool(start_id, end_id);
+    row.insert(
+        "references".to_string(),
+        generate_string_from_words(0..5, reference_pool, ','),
     );
 
     println!("{:?}", row);
@@ -84,6 +94,10 @@ fn generate_hierarchical_data_pool(top_range: Range<char>, sub_range: Range<u32>
     }
 
     words
+}
+
+fn generate_reference_pool(start_id: u32, end_id: u32) -> Vec<String> {
+    (start_id..=end_id).map(|id: u32| id.to_string()).collect()
 }
 
 fn generate_string_from_words(
