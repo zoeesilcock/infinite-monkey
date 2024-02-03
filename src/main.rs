@@ -2,7 +2,7 @@ use rand::prelude::*;
 use std::collections::HashMap;
 use std::ops::Range;
 use time::format_description::well_known::Iso8601;
-use time::Date;
+use time::{Date, Month};
 
 fn main() {
     for i in 0..10 {
@@ -18,8 +18,8 @@ fn generate_row(index: u32) {
     row.insert("id".to_string(), index.to_string());
 
     // Date
-    let date = Date::from_ordinal_date(2024, 33);
-    let date_string = date.unwrap().format(&Iso8601::DATE).unwrap();
+    let date = generate_random_date(2020..2024);
+    let date_string = date.format(&Iso8601::DATE).unwrap();
     row.insert("date".to_string(), date_string);
 
     // Word
@@ -79,4 +79,12 @@ fn generate_string_from_words(
     result.pop();
 
     result
+}
+
+fn generate_random_date(year_range: Range<u32>) -> Date {
+    let mut rng = thread_rng();
+    let year: i32 = rng.gen_range(year_range).try_into().unwrap();
+    let month: Month = Month::try_from(rng.gen_range(1..12)).unwrap();
+
+    Date::from_calendar_date(year, month, 1).unwrap()
 }
