@@ -7,13 +7,31 @@ use time::{Date, Month};
 fn main() {
     let start_id: u32 = 0;
     let end_id: u32 = 10;
+    let mut rows: Vec<HashMap<String, String>> = vec![];
+    let mut rng = thread_rng();
+
+    let word_pool = generate_word_pool(rng.gen_range(5..10), 3, 20);
+    let hierarchical_data_pool = generate_hierarchical_data_pool('A'..'F', 1..7);
+    let reference_pool = generate_reference_pool(start_id, end_id);
 
     for id in start_id..=end_id {
-        generate_row(id, start_id, end_id);
+        rows.push(generate_row(
+            id,
+            &word_pool,
+            &hierarchical_data_pool,
+            &reference_pool,
+        ));
     }
+
+    println!("{:?}", rows);
 }
 
-fn generate_row(id: u32, start_id: u32, end_id: u32) {
+fn generate_row(
+    id: u32,
+    word_pool: &Vec<String>,
+    hierarchical_data_pool: &Vec<String>,
+    reference_pool: &Vec<String>,
+) -> HashMap<String, String> {
     let mut rng = thread_rng();
     let mut row = HashMap::new();
 
@@ -30,28 +48,24 @@ fn generate_row(id: u32, start_id: u32, end_id: u32) {
     row.insert("word".to_string(), generate_word(length));
 
     // Comma separated words
-    let count = rng.gen_range(5..10);
-    let word_pool = generate_word_pool(count, 3, 20);
     row.insert(
         "words".to_string(),
         generate_string_from_words(1..5, word_pool, ','),
     );
 
     // Hierarchical data
-    let hierarchical_data_pool = generate_hierarchical_data_pool('A'..'F', 1..7);
     row.insert(
         "hierarchical".to_string(),
         generate_string_from_words(1..5, hierarchical_data_pool, ','),
     );
 
     // References
-    let reference_pool = generate_reference_pool(start_id, end_id);
     row.insert(
         "references".to_string(),
         generate_string_from_words(0..5, reference_pool, ','),
     );
 
-    println!("{:?}", row);
+    row
 }
 
 fn generate_word(length: u32) -> String {
@@ -102,7 +116,7 @@ fn generate_reference_pool(start_id: u32, end_id: u32) -> Vec<String> {
 
 fn generate_string_from_words(
     count_range: Range<u32>,
-    pool: Vec<String>,
+    pool: &Vec<String>,
     separator: char,
 ) -> String {
     let mut rng = thread_rng();

@@ -1,13 +1,15 @@
 # Todo
 
-## Don't recreate pools for each row
-* The idea is that they re-use the same pools.
+## Don't include the current row id in references.
 
 ## Convert to JSON
 * Add serde?
 
 
 # Done
+
+## Don't recreate pools for each row
+* The idea is that they re-use the same pools.
 
 ## Basic types of data
 * Sequencial number
