@@ -1,6 +1,7 @@
 use indexmap::IndexMap;
 use rand::prelude::*;
 use serde::{Deserialize, Serialize};
+use std::fs::File;
 use std::ops::Range;
 use time::format_description::well_known::Iso8601;
 use time::{Date, Month};
@@ -10,7 +11,7 @@ struct FakeData {
     data: Vec<IndexMap<String, String>>,
 }
 
-fn main() {
+fn main() -> serde_json::Result<()> {
     let start_id: u32 = 0;
     let end_id: u32 = 10;
     let mut rows: Vec<IndexMap<String, String>> = vec![];
@@ -30,9 +31,12 @@ fn main() {
     }
 
     let fake_data = FakeData { data: rows };
-    let json = serde_json::to_string_pretty(&fake_data).unwrap();
 
-    println!("{}", json);
+    // let json = serde_json::to_string_pretty(&fake_data).unwrap();
+    // println!("{}", json);
+
+    let file = File::create("fake_data.json").unwrap();
+    serde_json::to_writer_pretty(file, &fake_data)
 }
 
 fn generate_row(
