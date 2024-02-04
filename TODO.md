@@ -1,5 +1,23 @@
 # Todo
 
+## Use a full ISO 8601 date time in UTC
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON
+
+## Separate the data generation logic into lib files
+* Call the lib from the main.rs file
+* Implement error handling
+
+## Split out each column type to their own methods
+* The aim is to allow composing different sets of columns instead of the fixed example we have now in `geneate_row`.
+
+## Allow using a config file to define the structure of the fake data
+* https://toml.io/en/
+* Allow defining data pools to be used in columns
+* Allow defining a list of columns
+    * Name
+    * Data type
+    * Data length
+
 
 # Done
 
