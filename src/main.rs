@@ -50,19 +50,19 @@ fn generate_row(
     // Comma separated words
     row.insert(
         "words".to_string(),
-        generate_string_from_words(1..5, word_pool, ','),
+        generate_string_from_words(1..5, word_pool, ',', None),
     );
 
     // Hierarchical data
     row.insert(
         "hierarchical".to_string(),
-        generate_string_from_words(1..5, hierarchical_data_pool, ','),
+        generate_string_from_words(1..5, hierarchical_data_pool, ',', None),
     );
 
     // References
     row.insert(
         "references".to_string(),
-        generate_string_from_words(0..5, reference_pool, ','),
+        generate_string_from_words(0..5, reference_pool, ',', Some(id.to_string())),
     );
 
     row
@@ -118,13 +118,21 @@ fn generate_string_from_words(
     count_range: Range<u32>,
     pool: &Vec<String>,
     separator: char,
+    skip_word: Option<String>,
 ) -> String {
     let mut rng = thread_rng();
     let mut result: String = "".to_string();
 
     for _i in 0..rng.gen_range(count_range) {
-        result.push_str(pool.get(rng.gen_range(0..pool.len())).unwrap());
-        result.push(separator);
+        let word = pool.get(rng.gen_range(0..pool.len())).unwrap();
+
+        match &skip_word {
+            Some(skip) if word.eq(skip) => continue,
+            _ => {
+                result.push_str(word);
+                result.push(separator);
+            }
+        }
     }
 
     result.pop();

@@ -1,12 +1,12 @@
 # Todo
 
-## Don't include the current row id in references.
-
 ## Convert to JSON
 * Add serde?
 
 
 # Done
+
+## Don't include the current row id in references.
 
 ## Don't recreate pools for each row
 * The idea is that they re-use the same pools.
