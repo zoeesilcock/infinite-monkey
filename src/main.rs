@@ -1,8 +1,14 @@
 use indexmap::IndexMap;
 use rand::prelude::*;
+use serde::{Deserialize, Serialize};
 use std::ops::Range;
 use time::format_description::well_known::Iso8601;
 use time::{Date, Month};
+
+#[derive(Serialize, Deserialize)]
+struct FakeData {
+    data: Vec<IndexMap<String, String>>,
+}
 
 fn main() {
     let start_id: u32 = 0;
@@ -23,7 +29,8 @@ fn main() {
         ));
     }
 
-    let json = serde_json::to_string_pretty(&rows).unwrap();
+    let fake_data = FakeData { data: rows };
+    let json = serde_json::to_string_pretty(&fake_data).unwrap();
 
     println!("{}", json);
 }
