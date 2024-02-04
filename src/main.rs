@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::ops::Range;
 use time::format_description::well_known::Iso8601;
-use time::{Date, Month};
+use time::{Date, Month, OffsetDateTime, Time};
 
 #[derive(Serialize, Deserialize)]
 struct FakeData {
@@ -53,7 +53,7 @@ fn generate_row(
 
     // Date
     let date = generate_random_date(2020..2024);
-    let date_string = date.format(&Iso8601::DATE).unwrap();
+    let date_string = date.format(&Iso8601::DATE_TIME_OFFSET).unwrap();
     row.insert("date".to_string(), date_string);
 
     // Word
@@ -153,10 +153,11 @@ fn generate_string_from_words(
     result
 }
 
-fn generate_random_date(year_range: Range<u32>) -> Date {
+fn generate_random_date(year_range: Range<u32>) -> OffsetDateTime {
     let mut rng = thread_rng();
     let year: i32 = rng.gen_range(year_range).try_into().unwrap();
     let month: Month = Month::try_from(rng.gen_range(1..12)).unwrap();
+    let date = Date::from_calendar_date(year, month, 1).unwrap();
 
-    Date::from_calendar_date(year, month, 1).unwrap()
+    OffsetDateTime::new_utc(date, Time::MIDNIGHT)
 }
