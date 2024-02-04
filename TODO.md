@@ -1,7 +1,10 @@
 # Todo
 
 ## Convert to JSON
-* Add serde?
+* Add serde_json
+
+* Add a top level key
+* Write result to a file
 
 
 # Done

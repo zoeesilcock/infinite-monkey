@@ -1,5 +1,5 @@
+use indexmap::IndexMap;
 use rand::prelude::*;
-use std::collections::HashMap;
 use std::ops::Range;
 use time::format_description::well_known::Iso8601;
 use time::{Date, Month};
@@ -7,7 +7,7 @@ use time::{Date, Month};
 fn main() {
     let start_id: u32 = 0;
     let end_id: u32 = 10;
-    let mut rows: Vec<HashMap<String, String>> = vec![];
+    let mut rows: Vec<IndexMap<String, String>> = vec![];
     let mut rng = thread_rng();
 
     let word_pool = generate_word_pool(rng.gen_range(5..10), 3, 20);
@@ -23,7 +23,9 @@ fn main() {
         ));
     }
 
-    println!("{:?}", rows);
+    let json = serde_json::to_string_pretty(&rows).unwrap();
+
+    println!("{}", json);
 }
 
 fn generate_row(
@@ -31,9 +33,9 @@ fn generate_row(
     word_pool: &Vec<String>,
     hierarchical_data_pool: &Vec<String>,
     reference_pool: &Vec<String>,
-) -> HashMap<String, String> {
+) -> IndexMap<String, String> {
     let mut rng = thread_rng();
-    let mut row = HashMap::new();
+    let mut row = IndexMap::new();
 
     // Sequencial number
     row.insert("id".to_string(), id.to_string());
