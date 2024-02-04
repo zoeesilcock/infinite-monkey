@@ -1,8 +1,5 @@
 # Todo
 
-## Separate the data generation logic into lib files
-* Call the lib from the main.rs file
-* Implement error handling
 
 ## Split out each column type to their own methods
 * The aim is to allow composing different sets of columns instead of the fixed example we have now in `generate_row`.
@@ -15,8 +12,13 @@
     * Data type
     * Data length
 
+## Implement error handling
+
 
 # Done
+
+## Separate the data generation logic into lib files
+* Call the lib from the main.rs file
 
 ## Use a full ISO 8601 date time in UTC
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON
