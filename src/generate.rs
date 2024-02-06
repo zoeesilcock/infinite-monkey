@@ -10,6 +10,28 @@ pub struct FakeData {
     pub data: Vec<IndexMap<String, String>>,
 }
 
+pub fn generate_rows() -> FakeData {
+    let start_id: u32 = 0;
+    let end_id: u32 = 10;
+    let mut rows: Vec<IndexMap<String, String>> = vec![];
+    let mut rng = thread_rng();
+
+    let word_pool = generate_word_pool(rng.gen_range(5..10), 3, 20);
+    let hierarchical_data_pool = generate_hierarchical_data_pool('A'..'F', 1..7);
+    let reference_pool = generate_reference_pool(start_id, end_id);
+
+    for id in start_id..=end_id {
+        rows.push(generate_row(
+            id,
+            &word_pool,
+            &hierarchical_data_pool,
+            &reference_pool,
+        ));
+    }
+
+    FakeData { data: rows }
+}
+
 pub fn generate_row(
     id: u32,
     word_pool: &Vec<String>,
