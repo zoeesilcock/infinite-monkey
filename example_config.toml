@@ -1,0 +1,61 @@
+start_id = 0
+end_id = 10
+
+[[pools]]
+type = "words"
+name = "words"
+count_from = 5
+count_to = 10
+word_length_from = 3
+word_length_to = 20
+
+[[pools]]
+type = "hierarchical"
+name = "hierarchical"
+top_level_from = "A"
+top_level_to = "F"
+sub_level_from = 1
+sub_level_to = 7
+
+[[pools]]
+type = "references"
+name = "references"
+
+
+[[columns]]
+type = "sequence"
+name = "id"
+
+[[columns]]
+type = "date"
+name = "date"
+date_from = 2020-01-01T00:00:00Z
+date_to = 2024-12-31T23:59:59Z
+
+[[columns]]
+type = "word"
+name = "word"
+length_from = 3
+length_to = 20
+
+[[column]]
+type = "comma-separated"
+name = "words"
+pool = "words"
+count_from = 1
+count_to = 5
+
+[[column]]
+type = "comma-separated"
+name = "hierarchcial"
+pool = "hierarchcial"
+count_from = 1
+count_to = 5
+
+[[column]]
+type = "comma-separated"
+name = "references"
+pool = "references"
+count_from = 0
+count_to = 5
+

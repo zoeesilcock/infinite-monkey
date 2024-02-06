@@ -11,6 +11,10 @@
     * Name
     * Data type
     * Data length
+* Reference
+    * https://docs.rs/toml/latest/toml/
+    * https://serde.rs/enum-representations.html
+    * https://stackoverflow.com/questions/69767906/serde-deserialize-a-field-based-on-the-value-of-another-field
 
 ## Implement error handling
 
