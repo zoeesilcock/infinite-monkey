@@ -3,7 +3,7 @@ use toml::value::Datetime;
 
 #[derive(Deserialize, Debug)]
 #[serde(tag = "type")]
-pub enum Pool {
+pub enum PoolConfig {
     #[serde(rename = "words")]
     Words {
         name: String,
@@ -26,7 +26,7 @@ pub enum Pool {
 
 #[derive(Deserialize, Debug)]
 #[serde(tag = "type")]
-pub enum Column {
+pub enum ColumnConfig {
     #[serde(rename = "sequence")]
     Sequence { name: String },
     #[serde(rename = "date")]
@@ -54,6 +54,6 @@ pub enum Column {
 pub struct Config {
     pub start_id: u32,
     pub end_id: u32,
-    pub pools: Vec<Pool>,
-    pub columns: Vec<Column>,
+    pub pools: Vec<PoolConfig>,
+    pub columns: Vec<ColumnConfig>,
 }

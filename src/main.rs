@@ -11,7 +11,7 @@ fn main() -> serde_json::Result<()> {
 
     println!("{:?}", config);
 
-    let fake_data = generate_rows();
+    let fake_data = generate_rows(config);
 
     // let json = serde_json::to_string_pretty(&fake_data).unwrap();
     // println!("{}", json);

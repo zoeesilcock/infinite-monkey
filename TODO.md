@@ -1,8 +1,13 @@
 # Todo
 
 
-## Split out each column type to their own methods
-* The aim is to allow composing different sets of columns instead of the fixed example we have now in `generate_row`.
+## Add more date logic
+* Currently all dates are on the first of the month.
+
+## Implement error handling
+
+
+# Done
 
 ## Allow using a config file to define the structure of the fake data
 * https://toml.io/en/
@@ -15,11 +20,6 @@
     * https://docs.rs/toml/latest/toml/
     * https://serde.rs/enum-representations.html
     * https://stackoverflow.com/questions/69767906/serde-deserialize-a-field-based-on-the-value-of-another-field
-
-## Implement error handling
-
-
-# Done
 
 ## Separate the data generation logic into lib files
 * Call the lib from the main.rs file
@@ -44,4 +44,11 @@
 * Comma separated text
 * Hierarcical data (A, A1, A2, B, B1, B2)
 * Reference to other row
+
+
+## Skipped
+
+## Split out each column type to their own methods
+* The aim is to allow composing different sets of columns instead of the fixed example we have now in `generate_row`.
+* This isn't really necessary, could revisit in the future.
 
