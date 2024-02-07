@@ -4,6 +4,7 @@
 * Allow specifying the location of the config file (default to ./config.toml).
 * Allow specifying the location of the resulting JSON file (default to ./fake_data.json).
 * Debug mode which prints the parsed config and resulting data?
+
 * Output a success message informing the user how many rows and columns where generated.
 * Implement error handling.
 
