@@ -1,18 +1,19 @@
 # Todo
 
-## Add a CLI interface 
-* Allow specifying the location of the config file (default to ./config.toml).
-* Allow specifying the location of the resulting JSON file (default to ./fake_data.json).
-* Debug mode which prints the parsed config and resulting data?
-* Output a success message informing the user how many rows and columns where generated.
-
-* Implement error handling.
+## Implement error handling in the generator
 
 ## Add more date logic
 * Currently all dates are on the first of the month.
 
 
 # Done
+
+## Add a CLI interface 
+* Allow specifying the location of the config file (default to ./config.toml).
+* Allow specifying the location of the resulting JSON file (default to ./fake_data.json).
+* Debug mode which prints the parsed config and resulting data?
+* Output a success message informing the user how many rows and columns where generated.
+* Implement error handling.
 
 ## Allow using a config file to define the structure of the fake data
 * https://toml.io/en/
