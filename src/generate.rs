@@ -18,7 +18,7 @@ pub struct Pool<'a> {
     pub config: &'a PoolConfig,
 }
 
-pub fn generate_rows(config: Config) -> FakeData {
+pub fn generate_rows(config: &Config) -> FakeData {
     let mut rows: Vec<IndexMap<String, String>> = vec![];
     let pools = generate_pools(&config);
 
