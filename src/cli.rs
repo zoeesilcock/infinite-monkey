@@ -43,3 +43,19 @@ impl CliConfig {
         Ok(cli_config)
     }
 }
+
+pub struct DebugLogger {
+    enable_debug: bool,
+}
+
+impl DebugLogger {
+    pub fn new(enable_debug: bool) -> DebugLogger {
+        DebugLogger { enable_debug }
+    }
+
+    pub fn print(&self, message: String) {
+        if self.enable_debug {
+            println!("{}", message);
+        }
+    }
+}
